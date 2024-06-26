@@ -11,7 +11,7 @@ def send_email(html_content):
     smtp_server = "smtp.office365.com"
     smtp_port = 587
     sender_email = os.getenv('EMAIL_USERNAME')
-    receiver_emails = os.getenv('RECEIVER_EMAIL').split(',')
+    receiver_emails = ['amine.bakkoury@keycapital.es']
     password = os.getenv('EMAIL_PASSWORD')
 
     # Get today's date and format it
