@@ -2,7 +2,7 @@ name: Auto Newsletter
 
 on:
   schedule:
-    - cron: '0 9 * * 1-5'  # Runs every weekday at 9:00
+    - cron: '0 9 * * 1-5'  # Runs at 9:00 every weekday
 
 jobs:
   build:
