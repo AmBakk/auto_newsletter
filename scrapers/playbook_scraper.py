@@ -25,7 +25,7 @@ def is_published_yesterday(publication_date):
             publication_date = publication_date.replace(spanish, english)
         # Convert the publication date to a datetime object
         pub_date = datetime.strptime(publication_date, "%d de %B de %Y")
-        yesterday = datetime.today() - timedelta(days=2)
+        yesterday = datetime.today() - timedelta(days=0)
         return pub_date.date() == yesterday.date()
     except ValueError as e:
         print(f"Date parsing error: {e}")

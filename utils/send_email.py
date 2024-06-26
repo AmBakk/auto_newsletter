@@ -1,19 +1,32 @@
-import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from datetime import datetime
+import smtplib
+import locale
+import os
 
 
 def send_email(html_content):
     # Email configuration
     smtp_server = "smtp.office365.com"
     smtp_port = 587
-    sender_email = "rm_newsletter_test@hotmail.com"
-    receiver_emails = ["amine.bakkoury@keycapital.es"]
-    password = "Rmnewsletter24!"
+    sender_email = os.getenv('EMAIL_USERNAME')
+    receiver_emails = ["imenaya@realmadrid.es", "rmaringm@realmadrid.es", "amine.bakkoury@keycapital.es"]
+    password = os.getenv('EMAIL_PASSWORD')
 
     # Create a MIMEMultipart object
+    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+
+    # Get today's date and format it
+    today_date = datetime.today().strftime('%d de %B')
+
+    # Capitalize the month name manually
+    today_date_parts = today_date.split(' ')
+    today_date_parts[2] = today_date_parts[2].capitalize()
+    today_date = ' '.join(today_date_parts)
+
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = "RMCF Business Newsletter"
+    msg["Subject"] = f"RMCF Business Newsletter - {today_date}"
     msg["From"] = sender_email
     msg["To"] = ", ".join(receiver_emails)  # Join the list of recipient emails into a single string
     # msg["To"] = receiver_emails

@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 def is_published_yesterday(publication_date):
     try:
         pub_date = datetime.strptime(publication_date, "%B %d, %Y")
-        yesterday = datetime.today() - timedelta(days=1)
+        yesterday = datetime.today() - timedelta(days=0)
         return pub_date.date() == yesterday.date()
     except ValueError as e:
         print(f"Date parsing error: {e}")
@@ -59,13 +59,14 @@ def scrape_sportbusiness():
             link = link_tag['href']
             publication_date, content, image_url = extract_article_details_sb(link)
 
-            if publication_date: # and is_published_yesterday(publication_date):
+            if publication_date and is_published_yesterday(publication_date):
                 articles.append({
                     'title': title,
                     'link': link,
                     'publication_date': publication_date,
-                    'content': content,
-                    'image_url': image_url
+                    'subhead': content,
+                    'image_url': image_url,
+                    'publication': 'SportsBusiness'
                 })
 
     # Scrape image post articles
@@ -77,13 +78,14 @@ def scrape_sportbusiness():
             link = link_tag['href']
             publication_date, content, image_url = extract_article_details_sb(link)
 
-            if publication_date: # and is_published_yesterday(publication_date):
+            if publication_date and is_published_yesterday(publication_date):
                 articles.append({
                     'title': title,
                     'link': link,
                     'publication_date': publication_date,
-                    'content': content,
-                    'image_url': image_url
+                    'subhead': content,
+                    'image_url': image_url,
+                    'publication': 'SportsBusiness'
                 })
 
     # Scrape small post articles

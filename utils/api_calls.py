@@ -1,6 +1,10 @@
+import tiktoken
 import openai
+import json
+import re
+import os
 
-openai.api_key = 'sk-proj-81rZ6VNZyLaFxlyk89YhT3BlbkFJ2wjFP5Xa3ZNU0OBU6aU4'
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 
 def assess_relevance(article):
@@ -29,3 +33,34 @@ def assess_relevance(article):
         return relevance, summary
     else:
         return 'Not Relevant', ''
+
+
+def clean_html(newsletter):
+    messages = [
+        {"role": "system",
+         "content": '''You are the last step in a project that aggregates scrapped articles and puts together a 
+                       newsletter. Your role is to clean up the HTML structure of the newsletter and remove any duplicate
+                       articles.'''},
+        {"role": "user",
+         "content": f'''The following is the newsletter's HTML structure. Go through it and : \n
+                        - Remove any articles that are present more than once 
+                        - If a summary starts with the word 'summary', remove the word
+                        - Only return the actual html structure, as your response will be directly emailed as the 
+                          newsletter. \n{newsletter}'''}
+    ]
+
+    response = openai.chat.completions.create(
+        model="gpt-4o",
+        messages=messages,
+        max_tokens=3000,
+        n=1,
+        stop=None,
+        temperature=0.7,
+    )
+
+    response_dict = response.model_dump()  # Convert to dictionary
+    newsletter = response_dict['choices'][0]['message']['content'].strip()
+
+    return newsletter
+
+

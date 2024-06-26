@@ -11,10 +11,12 @@ def is_published_yesterday_sco(publication_date):
             pub_date = datetime.now() - timedelta(hours=hours_ago)
         elif 'hour ago' in publication_date:
             pub_date = datetime.now() - timedelta(hours=1)
+        elif 'mins ago' in publication_date:
+            pub_date = datetime.now() - timedelta(minutes=30)
         else:
             pub_date = datetime.strptime(publication_date, "%b %d, %Y %I:%M %p")
 
-        yesterday = datetime.today() - timedelta(days=1)
+        yesterday = datetime.today() - timedelta(days=0)
         return pub_date.date() == yesterday.date()
     except ValueError as e:
         print(f"Date parsing error: {e}")

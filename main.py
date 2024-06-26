@@ -9,6 +9,8 @@ from scrapers.sportsbusinessjournal_scraper import *
 from utils.api_calls import *
 from utils.build_nl import *
 from utils.send_email import *
+import http.server
+import socketserver
 
 relevant_articles = []
 
@@ -33,8 +35,8 @@ sportsbusiness_articles = scrape_sportbusiness()
 # sportsbusinessjournal_articles = []
 # sportsbusinessjournal_articles = scrape_sportsbusinessjournal()
 
-all_articles = [playbook_articles, eurohoop_articles, offthepitch_articles, palco23_articles, sportico_articles]
-
+all_articles = [playbook_articles, eurohoop_articles, offthepitch_articles, palco23_articles, sportico_articles,
+                sportsbusiness_articles]
 
 for pub in all_articles:
     for article in pub:
@@ -65,5 +67,21 @@ for publication, articles in articles_by_publication.items():
 # Create the final newsletter HTML
 newsletter_html = html_template.replace("{publications}", publications_html)
 
+clean_html = clean_html(newsletter_html)
+
 # Send the email
-send_email(newsletter_html)
+send_email(clean_html)
+
+# class MyRequestHandler(http.server.SimpleHTTPRequestHandler):
+#     def do_GET(self):
+#         self.send_response(200)
+#         self.send_header('Content-type', 'text/html')
+#         self.end_headers()
+#         self.wfile.write(clean_html.encode())
+#
+#
+# # Start the HTTP server
+# PORT = 8000
+# with socketserver.TCPServer(("", PORT), MyRequestHandler) as httpd:
+#     print(f"Serving on port {PORT}")
+#     httpd.serve_forever()

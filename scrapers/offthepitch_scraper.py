@@ -7,7 +7,7 @@ def is_published_yesterday(publication_date):
     try:
         # Convert the publication date to a datetime object
         pub_date = datetime.strptime(publication_date, "%d %B %Y - %I:%M %p")
-        yesterday = datetime.today() - timedelta(days=1)
+        yesterday = datetime.today() - timedelta(days=0)
         return pub_date.date() == yesterday.date()
     except ValueError as e:
         print(f"Date parsing error: {e}")
@@ -65,7 +65,8 @@ def scrape_offthepitch():
                     'link': link,
                     'publication_date': publication_date,
                     'subhead': subhead,
-                    'image_url': image_url
+                    'image_url': image_url,
+                    'publication': 'Off The Pitch'
                 })
 
     # Scrape articles from reference-card-wrapper
