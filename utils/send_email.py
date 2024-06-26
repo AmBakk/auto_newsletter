@@ -3,7 +3,6 @@ from email.mime.text import MIMEText
 from babel.dates import format_date
 from datetime import datetime
 import smtplib
-import locale
 import os
 
 
@@ -14,9 +13,6 @@ def send_email(html_content):
     sender_email = os.getenv('EMAIL_USERNAME')
     receiver_emails = os.getenv('RECEIVER_EMAIL')
     password = os.getenv('EMAIL_PASSWORD')
-
-    # Create a MIMEMultipart object
-    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
     # Get today's date and format it
     current_date = datetime.now()
