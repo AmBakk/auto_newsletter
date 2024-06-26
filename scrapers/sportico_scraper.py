@@ -13,6 +13,8 @@ def is_published_yesterday_sco(publication_date):
             pub_date = datetime.now() - timedelta(hours=1)
         elif 'mins ago' in publication_date:
             pub_date = datetime.now() - timedelta(minutes=30)
+        elif 'seconds ago' in publication_date:
+            pub_date = datetime.now() - timedelta(seconds=30)
         else:
             pub_date = datetime.strptime(publication_date, "%b %d, %Y %I:%M %p")
 
