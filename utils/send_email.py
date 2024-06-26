@@ -11,7 +11,7 @@ def send_email(html_content):
     smtp_server = "smtp.office365.com"
     smtp_port = 587
     sender_email = os.getenv('EMAIL_USERNAME')
-    receiver_emails = os.getenv('RECEIVER_EMAIL')
+    receiver_emails = os.getenv('RECEIVER_EMAIL').split(',')
     password = os.getenv('EMAIL_PASSWORD')
 
     # Get today's date and format it
@@ -26,7 +26,7 @@ def send_email(html_content):
     msg = MIMEMultipart("alternative")
     msg["Subject"] = f"RMCF Business Newsletter - {today_date}"
     msg["From"] = sender_email
-    msg["To"] = receiver_emails
+    msg["To"] = ', '.join(receiver_emails)
     # msg["To"] = receiver_emails
 
     # Attach the HTML content to the email
@@ -41,4 +41,4 @@ def send_email(html_content):
             server.sendmail(sender_email, receiver_emails, msg.as_string())
             print("Email sent successfully")
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Email Error: {e}")
