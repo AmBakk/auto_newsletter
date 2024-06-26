@@ -1,5 +1,6 @@
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from babel.dates import format_date
 from datetime import datetime
 import smtplib
 import locale
@@ -18,12 +19,13 @@ def send_email(html_content):
     locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
     # Get today's date and format it
-    today_date = datetime.today().strftime('%d de %B')
+    current_date = datetime.now()
+    formatted_date = format_date(current_date, format='full', locale='es_ES')
 
     # Capitalize the month name manually
-    today_date_parts = today_date.split(' ')
-    today_date_parts[2] = today_date_parts[2].capitalize()
-    today_date = ' '.join(today_date_parts)
+    formatted_date = formatted_date.split(' ')
+    formatted_date[2] = formatted_date[2].capitalize()
+    today_date = ' '.join(formatted_date)
 
     msg = MIMEMultipart("alternative")
     msg["Subject"] = f"RMCF Business Newsletter - {today_date}"
