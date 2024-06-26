@@ -2,7 +2,8 @@ name: Auto Newsletter
 
 on:
   schedule:
-    - cron: '0 9 * * 1-5'  # Runs at 9:00 every weekday
+    - cron: '0 9 * * 1-5' # Runs at 9:00 every weekday
+  workflow_dispatch:
 
 jobs:
   build:
@@ -29,3 +30,4 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           RECEIVER_EMAILS: ${{ secrets.RECEIVER_EMAILS }}
         run: python main.py
+
