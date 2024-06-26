@@ -1,7 +1,4 @@
-import tiktoken
 import openai
-import json
-import re
 import os
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
