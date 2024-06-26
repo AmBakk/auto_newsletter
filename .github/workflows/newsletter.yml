@@ -29,3 +29,4 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           RECEIVER_EMAILS: ${{ secrets.RECEIVER_EMAILS }}
         run: python main.py
+
