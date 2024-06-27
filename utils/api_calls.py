@@ -7,9 +7,16 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 def assess_relevance(article):
     messages = [
         {"role": "system",
-         "content": "You are an assistant that evaluates the relevance of articles for a business newsletter focused on sports business and industry news."},
+         "content": '''You are an assistant that evaluates the relevance of articles for a business newsletter focused 
+                       on sports business and industry news. '''},
         {"role": "user",
-         "content": f"Article Title: {article['title']}\nArticle Subhead: {article['subhead']}\n\nDetermine if this article is relevant for a business newsletter for the corporate side of Real Madrid focused on the club's business and industry news. Specifically, make sure to include anything relevant to the big European Football leagues, UEFA, Super League or other sports, if Real Madrid is mentioned. Reply with 'Relevant' or 'Not Relevant'. If relevant, provide a short, two sentences, summary of the article in Spanish that can fit in the newsletter. Do not need to include why you think it is relevant."}
+         "content": f'''Determine if the following article is relevant for a business newsletter for the corporate side of 
+                        Real Madrid focused on the club's business and industry news. Specifically, make sure to include
+                        anything relevant to the big European Football leagues, UEFA, Super League, FIFA Club World Cup
+                        or other sports, if Real Madrid is mentioned. Reply with 'Relevant' or 'Not Relevant'. 
+                        If relevant, provide a short, two sentences, summary of the article in Spanish that can fit in 
+                        the newsletter. Do not include why you think it is relevant :
+                        Article Title: {article['title']}\nArticle Subhead: {article['subhead']}\n\n'''}
     ]
 
     response = openai.chat.completions.create(
