@@ -159,18 +159,3 @@ If you encounter issues:
 1. **Check Environment Variables**: Ensure all required environment variables are set.
 2. **Inspect Logs**: Review logs from GitHub Actions for detailed error messages.
 3. **Dependencies**: Ensure all dependencies are installed correctly.
-
-## Contributing
-
-1. Fork the repository.
-2. Create a new branch.
-3. Make your changes.
-4. Submit a pull request.
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-This README provides a comprehensive guide to setting up, running, and troubleshooting the Auto Newsletter project. Make sure to replace placeholders with your actual information where necessary.
